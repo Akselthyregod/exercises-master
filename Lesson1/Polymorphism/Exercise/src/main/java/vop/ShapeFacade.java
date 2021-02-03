@@ -27,12 +27,25 @@ public class ShapeFacade {
 
     // enum som kendes af GUI'en
     public enum SHAPES {
-        CIRCLE, ELLIPSE, RECTANGLE, SQUERE
+        CIRCLE, ELLIPSE, RECTANGLE, SQUARE
     };
 
     // Facadens public metoder
-    public String getShapeInfo(SHAPES shape, double... parametre) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String getShapeInfo(SHAPES shape, double p1, double p2) {
+       // throw new UnsupportedOperationException("Not supported yet.");
+        AbstractShape obj = null;
+
+        if(shape == SHAPES.CIRCLE){
+            obj = new Circle(p1);
+        }else if(shape == SHAPES.SQUARE){
+            obj = new Square(p1);
+        }else if(shape == SHAPES.ELLIPSE){
+            obj = new Ellipse(p1, p2);
+        }else if(shape == SHAPES.RECTANGLE){
+            obj = new Rectangle(p1, p2);
+        }
+
+        return obj.toString();
     }
 
 }
