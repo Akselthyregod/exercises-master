@@ -33,6 +33,11 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+
+        CaesarCipher c1=new CaesarCipher(20);
+       String s= c1.encrypt("Hejsa");
+       String s1=c1.decrypt(s);
+        System.out.println(s1);
     }
 
 }
