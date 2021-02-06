@@ -52,7 +52,7 @@ public class PrimaryController {
         ShapeFacade.SHAPES shape = (ShapeFacade.SHAPES)tg.getSelectedToggle().getUserData();
 
         outputArea.setText(ShapeFacade.getInstance().getShapeInfo(shape, p1, p2));
-        
+
     }
 
 
