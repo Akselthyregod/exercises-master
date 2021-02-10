@@ -8,8 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 public class PrimaryController implements Initializable {
+
+
 
     @FXML
     private RadioButton ellipseRadio;
@@ -64,4 +67,7 @@ public class PrimaryController implements Initializable {
             para2.setVisible(true);
         }
     }
+
+
+
 }
