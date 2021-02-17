@@ -43,18 +43,18 @@ public class Mountain implements Comparable<Mountain> {
     }
 
     public int getRange(){
-        if (this.range.equals("Alps")){
+        if (this.range.equals("Alps ")){
             return 1;
-        }else if (this.range.equals("Pyrenees")){
+        }else if (this.range.equals("Pyrenees ")){
             return 2;
         }
-        else if(this.range.equals("Jura")){
+        else if(this.range.equals("Jura ")){
             return 3;
         }
-        else if (this.range.equals("Vosges")){
+        else if (this.range.equals("Vosges ")){
             return 4;
         }
-        else if (this.range.equals("Massif Central")){
+        else if (this.range.equals("Massif Central ")){
             return 5;
         }
         else return 0;

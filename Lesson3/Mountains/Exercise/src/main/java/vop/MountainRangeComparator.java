@@ -7,10 +7,14 @@ public class MountainRangeComparator implements Comparator<Mountain> {
 
     @Override
     public int compare(Mountain o1, Mountain o2) {
-       if(o1.getRange()< o2.getRange()){
+
+        if(o1.getRange() > o2.getRange()){
            return 1;
-       }else if (o1.getRange()>o2.getRange()){
-           return -1;
-       }else return 0;
+        }else if (o1.getRange() < o2.getRange()){
+            return -1;
+        }else {
+            return o1.compareTo(o2);
+        }
+
     }
 }
