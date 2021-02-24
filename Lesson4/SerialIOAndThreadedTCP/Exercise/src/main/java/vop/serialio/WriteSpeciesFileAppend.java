@@ -11,7 +11,32 @@ public class WriteSpeciesFileAppend {
 
     public static void main(String[] args) {
         String fileName = getFileName("Enter output file name.");
+        File file= new File(fileName);
 
+        if(file.exists()){
+            try (ObjectOutputStream outputStream = new ObjectOutputStream(
+                    new FileOutputStream(fileName, true)) {
+                 @Override
+                         protected void writeStreamHeader() throws IOException {
+                reset();
+            }
+        }) {
+
+                Species califCondor
+                        = new Species("Calif. Condor", 27, 0.02);
+                outputStream.writeObject(califCondor);
+
+                Species blackRhino
+                        = new Species("Black Rhino", 100, 1.0);
+                outputStream.writeObject(blackRhino);
+
+            } catch (IOException e) {
+                System.err.println("Error opening output file "
+                        + fileName + ": " + e.getMessage());
+                System.exit(0);
+            }
+        }
+        else
         try (ObjectOutputStream outputStream = new ObjectOutputStream(
                 new FileOutputStream(fileName, true))) {
             Species califCondor
@@ -62,7 +87,7 @@ public class WriteSpeciesFileAppend {
         String fileName = null;
         System.out.println(prompt);
         fileName = keyboard.next();
-
         return fileName;
+
     }
 }
