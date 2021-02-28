@@ -9,6 +9,7 @@ package vop.threadedtcp.server;
 import vop.threadedtcp.requesthandlers.AbstractRequestHandler;
 import vop.threadedtcp.requesthandlers.FileOutRequestHandler;
 import vop.threadedtcp.requesthandlers.FlipRequestHandler;
+import vop.threadedtcp.requesthandlers.ObjectRequestHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -38,10 +39,10 @@ public class TCPServer {
                 Socket socket = ss.accept();
                 System.out.println("Server has accepted a client on port " + socket.getPort());
 
-//Choose RequestHandler before start:
-              // requestHandler = new FlipRequestHandler(socket);
-                requestHandler =  new FileOutRequestHandler(socket, "RequestLog.txt");
-//                requestHandler = new ObjectRequestHandler(socket);
+                //Choose RequestHandler before start:
+                // requestHandler = new FlipRequestHandler(socket);
+                // requestHandler =  new FileOutRequestHandler(socket, "RequestLog.txt");
+               requestHandler = new ObjectRequestHandler(socket);
 
                 new Thread(requestHandler).start();
 

@@ -1,5 +1,10 @@
 package vop.threadedtcp;
 
+import vop.serialio.Species;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -16,6 +21,14 @@ public class SocketClient {
             // Set up streams to send/receive data
             inputStream = new Scanner(clientSocket.getInputStream());
             outputStream = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            if(keyboard.nextLine().equalsIgnoreCase("obj")){
+                Species obj = new Species("Test", 20, 10);
+                ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+
+                oos.writeObject(obj);
+                oos.close();
+            }
 
             // Start massage from server:
             System.out.println(inputStream.nextLine());
