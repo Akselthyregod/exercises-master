@@ -35,10 +35,10 @@ public class FlipRequestHandler extends AbstractRequestHandler {
             String flipped = "";
             while (scanner.hasNextLine()) {
 
-                String line = scanner.nextLine();
+               String line = scanner.nextLine();
 
                 flipped = flipUpperLower(line);
-                writer.println(line + " Changed to: " + flipped);
+                writer.println("hej");
             }
 
             System.out.println("RequestHandler DONE!!!!");

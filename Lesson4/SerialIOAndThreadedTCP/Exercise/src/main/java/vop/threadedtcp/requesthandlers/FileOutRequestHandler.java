@@ -2,10 +2,7 @@ package vop.threadedtcp.requesthandlers;
 
 import vop.serialio.Species;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Date;
 import java.util.Scanner;
@@ -16,110 +13,38 @@ public class FileOutRequestHandler  extends AbstractRequestHandler{
     public FileOutRequestHandler(Socket socket, String fileName) {
         super(socket);
         file= new File(fileName);
+        System.out.println(file.exists());
 
-    }
-
-    public void writeToFile(String message){
-        if(file.exists()){
-            try (ObjectOutputStream outputStream = new ObjectOutputStream(
-                    new FileOutputStream(file.getName(), true)) {
-                @Override
-                protected void writeStreamHeader() throws IOException {
-                    reset();
-                }
-            }) {
-
-            outputStream.writeObject(new Date());
-            outputStream.writeUTF("\t");
-            outputStream.writeObject(super.socket.getInetAddress());
-            outputStream.writeUTF(":");
-            outputStream.writeInt(super.socket.getPort());
-            outputStream.writeUTF("\t");
-            outputStream.writeUTF(message);
-
-
-
-            } catch (IOException e) {
-                System.err.println("Error opening output file "
-                        + file.getName() + ": " + e.getMessage());
-                System.exit(0);
-            }
-        }
-        else
-            try (ObjectOutputStream outputStream = new ObjectOutputStream(
-                    new FileOutputStream(file.getName(), true))) {
-                outputStream.writeObject(new Date());
-                outputStream.writeUTF("\t");
-                outputStream.writeObject(super.socket.getInetAddress());
-                outputStream.writeUTF(":");
-                outputStream.writeInt(super.socket.getPort());
-                outputStream.writeUTF("\t");
-                outputStream.writeUTF(message);
-
-            } catch (IOException e) {
-                System.err.println("Error opening output file "
-                        + file.getName() + ": " + e.getMessage());
-                System.exit(0);
-            }
     }
 
     @Override
     public void run() {
         System.out.println("RequestHandler started for den her " + socket.getPort());
-        if(file.exists()){
-            try ( Scanner scanner = new Scanner(socket.getInputStream());
-                  ObjectOutputStream outputStream = new ObjectOutputStream(
-                    new FileOutputStream(file.getName(), true)) {
+            try (Scanner scanner = new Scanner(socket.getInputStream());
+                 PrintWriter outputStream = new PrintWriter(new FileWriter(file,true),true);
+                 PrintWriter clientWriter= new PrintWriter(socket.getOutputStream(),true)
 
-                @Override
-                protected void writeStreamHeader() throws IOException {
-                    reset();
-                }
-
-            }) {
-                String message="";
-                while(scanner.hasNextLine()){
+            ) {
+                clientWriter.println("hej serveren kører");
+                System.out.println("tester om den kommre her til");
+                String message = "";
+                while (scanner.hasNextLine()) {
                     System.out.println(" test");
-                    message+=scanner.nextLine() + "\n";
+                    message += scanner.nextLine() + "\n";
+                    outputStream.println(new Date());
+                    outputStream.println("\t");
+                    outputStream.println(super.socket.getInetAddress());
+                    outputStream.println(":");
+                    outputStream.println(super.socket.getPort());
+                    outputStream.println("\t");
+                    outputStream.println(message);
                 }
-
-                outputStream.writeObject(new Date());
-                outputStream.writeUTF("\t");
-                outputStream.writeObject(super.socket.getInetAddress());
-                outputStream.writeUTF(":");
-                outputStream.writeInt(super.socket.getPort());
-                outputStream.writeUTF("\t");
-                outputStream.writeUTF(message);
-
-
 
             } catch (IOException e) {
                 System.err.println("Error opening output file "
                         + file.getName() + ": " + e.getMessage());
                 System.exit(0);
             }
-        }
-        else
-            try (Scanner scanner=new Scanner(socket.getInputStream());
-                 ObjectOutputStream outputStream = new ObjectOutputStream(
-                    new FileOutputStream(file.getName(), true))) {
-                String message="";
-                while(scanner.hasNextLine()){
-                    System.out.println("test");
-                    message+=scanner.nextLine() + "\n";
-                }
-                outputStream.writeObject(new Date());
-                outputStream.writeUTF("\t");
-                outputStream.writeObject(super.socket.getInetAddress());
-                outputStream.writeUTF(":");
-                outputStream.writeInt(super.socket.getPort());
-                outputStream.writeUTF("\t");
-                outputStream.writeUTF(message);
 
-            } catch (IOException e) {
-                System.err.println("Error opening output file "
-                        + file.getName() + ": " + e.getMessage());
-                System.exit(0);
-            }
     }
 }

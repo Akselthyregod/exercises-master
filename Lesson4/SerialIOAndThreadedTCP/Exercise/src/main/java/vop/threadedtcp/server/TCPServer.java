@@ -39,7 +39,7 @@ public class TCPServer {
                 System.out.println("Server has accepted a client on port " + socket.getPort());
 
 //Choose RequestHandler before start:
-    //            requestHandler = new FlipRequestHandler(socket);
+              // requestHandler = new FlipRequestHandler(socket);
                 requestHandler =  new FileOutRequestHandler(socket, "RequestLog.txt");
 //                requestHandler = new ObjectRequestHandler(socket);
 
@@ -57,7 +57,7 @@ public class TCPServer {
     public static void main(String[] args) {
         // TODO code application logic here
         TCPServer server;
-        server = new TCPServer(3333);
+        server = new TCPServer(3334);
         server.start();
     }
 

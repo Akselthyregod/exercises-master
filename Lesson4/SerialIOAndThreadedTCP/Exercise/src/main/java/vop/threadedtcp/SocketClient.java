@@ -11,7 +11,7 @@ public class SocketClient {
         Scanner inputStream = null;
         PrintWriter outputStream = null;
 
-        try (Socket clientSocket = new Socket("localhost", 3333);
+        try (Socket clientSocket = new Socket("localhost", 3334);
              Scanner keyboard = new Scanner(System.in)) {
             // Set up streams to send/receive data
             inputStream = new Scanner(clientSocket.getInputStream());
